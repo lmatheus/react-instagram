@@ -18,7 +18,9 @@ const styles = {
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif',
   width: '100%',
   padding: 0,
-  margin: 0
+  margin: 0,
+  background: '#fafafa',
+  display: 'table'
 };
 
 export default App;

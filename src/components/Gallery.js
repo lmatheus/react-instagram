@@ -60,11 +60,8 @@ class Gallery extends PureComponent {
 
 const styles = {
   outerContainer: {
-    minHeight: 'calc(100vh - 77px - 8em)',
     marginTop: 77,
-    marginBottom: 77,
-    padding: '4em',
-    background: '#fafafa'
+    padding: '4em'
   },
   innerContainer: {
     width: 939,
