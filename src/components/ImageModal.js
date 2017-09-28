@@ -82,7 +82,7 @@ class ImageModal extends PureComponent {
       const opacity = 1;
       document.body.style.overflow = 'hidden';
       this.setState({ top, opacity });
-    });
+    }, 50);
   }
 
   componentWillUnmount() {
