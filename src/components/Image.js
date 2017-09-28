@@ -1,33 +1,21 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-class Image extends PureComponent {
-  state = {
-    url: this.props.url
-  };
+const ImageContainer = styled.div`
+  width: 293px;
+  height: 293px;
+  overflow: hidden;
+  float: left;
+  margin: 10px;
+  cursor: pointer;
+`;
 
-  render() {
-    const { imageContainer, image } = styles;
-    const { url } = this.state;
-    return (
-      <div style={imageContainer}>
-        <img style={image} src={url} alt={url} />
-      </div>
-    );
-  }
-}
+const Picture = styled.img`height: 100%;`;
 
-const styles = {
-  imageContainer: {
-    width: 293,
-    height: 293,
-    overflow: 'hidden',
-    float: 'left',
-    margin: 10,
-    cursor: 'pointer'
-  },
-  image: {
-    height: '100%'
-  }
-};
+const Image = ({ url }) => (
+  <ImageContainer>
+    <Picture src={url} alt={url} />
+  </ImageContainer>
+);
 
 export default Image;

@@ -1,5 +1,71 @@
 import React, { PureComponent } from 'react';
 import closeIconImage from '../images/close-icon.png';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const Content = styled.div`
+  display: inline-flex;
+  position: absolute;
+  width: 935px;
+  max-height: 100%;
+  left: calc(50% - 939px / 2);
+  background: white;
+  z-index: 9999;
+  top: ${({ top }) => top};
+  opacity: ${({ opacity }) => opacity};
+`;
+
+const LeftContainer = styled.div`
+  width: 65%;
+  background: black;
+`;
+
+const RightContainer = styled.div`
+  width: 35%;
+  padding: 1.5em;
+`;
+
+const CloseIcon = styled.img`
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 1em;
+  right: 2em;
+  cursor: pointer;
+`;
+
+const Header = styled.div`
+  display: inline-flex;
+  width: 100%;
+  height: 4em;
+  borderbottom: 1px solid #efefef;
+`;
+
+const Backdrop = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0.75;
+`;
+
+const Brand = styled.img`
+  border-radius: 100%;
+  height: 45px;
+`;
+
+const Title = styled.p`margin-left: 1em;`;
+
+const Description = styled.div`
+  padding: 1em 0;
+  overflow-y: scroll;
+`;
 
 class ImageModal extends PureComponent {
   state = {
@@ -30,109 +96,34 @@ class ImageModal extends PureComponent {
 
   render() {
     const { url, top, opacity, brandLogo } = this.state;
-    const {
-      container,
-      content,
-      backdrop,
-      left,
-      right,
-      image,
-      closeIcon,
-      header,
-      mainPicture,
-      title,
-      description
-    } = styles;
     return (
-      <div style={container}>
-        <div style={{ ...content, top, opacity }}>
-          <div style={left}>
-            <img id="image" style={image} src={url} alt={url} />
-          </div>
-          <div style={right}>
-            <div style={header}>
-              <img style={mainPicture} src={brandLogo} alt="brand-logo" />
-              <p style={title}>chatedeorigen</p>
-            </div>
-            <div style={description}>
+      <Container>
+        <Content top={top} opacity={opacity}>
+          <LeftContainer>
+            <img id="image" width="100%" src={url} alt={url} />
+          </LeftContainer>
+          <RightContainer>
+            <Header>
+              <Brand src={brandLogo} alt="brand-logo" />
+              <Title>chatedeorigen</Title>
+            </Header>
+            <Description>
               <strong>chatedeorigen</strong> Te esperamos HOY de 3 a 8 en el
               increíble Showroom privado de @veranosuite compartiendo con otras
               increíbles marcas, para una tarde shopping de como ninguna! . ✔️
               Estaremos al lado del Parque el Virrey.
-            </div>
-          </div>
-        </div>
-        <div onClick={() => this._close()} style={backdrop} />
-        <img
+            </Description>
+          </RightContainer>
+        </Content>
+        <Backdrop onClick={() => this._close()} />
+        <CloseIcon
           onClick={() => this._close()}
-          style={closeIcon}
           src={closeIconImage}
           alt="close"
         />
-      </div>
+      </Container>
     );
   }
 }
-
-const styles = {
-  container: {
-    position: 'fixed',
-    left: 0,
-    top: 0,
-    width: '100vw',
-    height: '100vh'
-  },
-  content: {
-    display: 'inline-flex',
-    position: 'absolute',
-    width: 935,
-    maxHeight: '100%',
-    left: 'calc(50% - 939px / 2)',
-    background: 'white',
-    zIndex: 9999
-  },
-  left: {
-    width: '65%',
-    background: 'black'
-  },
-  right: {
-    width: '35%',
-    padding: '1.5em'
-  },
-  image: {
-    width: '100%'
-  },
-  closeIcon: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    top: `1em`,
-    right: `2em`,
-    cursor: 'pointer'
-  },
-  backdrop: {
-    width: '100vw',
-    height: '100vh',
-    background: 'black',
-    opacity: 0.75
-  },
-  header: {
-    display: 'inline-flex',
-    width: '100%',
-    height: '4em',
-    borderBottom: '1px solid #efefef'
-  },
-  mainPicture: {
-    borderRadius: '100%',
-    height: 45
-  },
-  title: {
-    marginLeft: '1em'
-  },
-  description: {
-    padding: '1em 0',
-    overflowY: 'scroll'
-  }
-};
 
 export default ImageModal;

@@ -2,14 +2,45 @@ import React, { PureComponent } from 'react';
 import Image from './Image';
 import ImageModal from './ImageModal';
 import images from '../data/images';
+import styled from 'styled-components';
+
+const brandLogo =
+  'https://instagram.fbog3-1.fna.fbcdn.net/t51.2885-19/s150x150/21042731_263918554120225_2896844540801449984_a.jpg';
+
+const OuterContainer = styled.div`
+  margin-top: 77px;
+  padding: 4em;
+`;
+
+const Header = styled.div`
+  display: inline-flex;
+  width: 939px;
+  margin-left: calc(50% - 939px / 2);
+  padding-left: 4em;
+  padding-bottom: 4em;
+`;
+
+const RightContainer = styled.div`
+  padding-left: 1.5em;
+  width: 789px;
+  font-size: 32px;
+  font-weight: 200;
+`;
+
+const LeftContainer = styled.div`width: 250px;`;
+
+const InnerContainer = styled.div`
+  width: 939px;
+  margin-left: calc(50% - 939px / 2);
+`;
+
+const Brand = styled.img`border-radius: 100%;`;
 
 class Gallery extends PureComponent {
   state = {
     images,
     selectedImage: {},
-    show: false,
-    brandLogo:
-      'https://instagram.fbog3-1.fna.fbcdn.net/t51.2885-19/s150x150/21042731_263918554120225_2896844540801449984_a.jpg'
+    show: false
   };
 
   _renderThumbnails = () => {
@@ -31,65 +62,29 @@ class Gallery extends PureComponent {
     this.setState({ show: false, selectedImage });
   };
 
-  render() {
-    const { show, selectedImage, brandLogo } = this.state;
-    const {
-      outerContainer,
-      header,
-      left,
-      right,
-      mainPicture,
-      innerContainer
-    } = styles;
+  _renderModal = () => {
+    const { show, selectedImage } = this.state;
     return (
-      <div style={{ ...outerContainer }}>
-        <div style={header}>
-          <div style={left}>
-            <img style={mainPicture} src={brandLogo} alt="brand" />
-          </div>
-          <div style={right}>chatedeorigen</div>
-        </div>
-        <div style={innerContainer}>{this._renderThumbnails()}</div>
-        {show && (
-          <ImageModal close={this._closeModal} selectedImage={selectedImage} />
-        )}
-      </div>
+      show && (
+        <ImageModal close={this._closeModal} selectedImage={selectedImage} />
+      )
+    );
+  };
+
+  render() {
+    return (
+      <OuterContainer>
+        <Header>
+          <LeftContainer>
+            <Brand src={brandLogo} alt="brand" />
+          </LeftContainer>
+          <RightContainer>chatedeorigen</RightContainer>
+        </Header>
+        <InnerContainer>{this._renderThumbnails()}</InnerContainer>
+        {this._renderModal()}
+      </OuterContainer>
     );
   }
 }
-
-const styles = {
-  outerContainer: {
-    marginTop: 77,
-    padding: '4em'
-  },
-  innerContainer: {
-    width: 939,
-    marginLeft: 'calc(50% - 939px / 2)'
-  },
-  header: {
-    display: 'inline-flex',
-    width: 939,
-    marginLeft: 'calc(50% - 939px / 2)',
-    paddingLeft: '4em',
-    paddingBottom: '4em'
-  },
-  left: {
-    width: 250
-  },
-  right: {
-    paddingLeft: '1.5em',
-    width: 789,
-    fontSize: 32,
-    fontWeight: 200
-  },
-  profileInfo: {
-    height: '100%',
-    width: 400
-  },
-  mainPicture: {
-    borderRadius: '100%'
-  }
-};
 
 export default Gallery;
